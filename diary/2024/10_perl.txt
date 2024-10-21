@@ -28,4 +28,4 @@ print "$_\n" for (1..10);
 
 
 #6.
-say for (1..10);
+say for 1..10
