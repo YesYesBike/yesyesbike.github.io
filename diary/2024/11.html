@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>C, Perl, Linux</title>
+	</head>
+	<body>
+		<h1>"When in doubt, use brute force" -Ken Thompson</h1>
+		<hr>
+		<p><a href="../../index.html">홈으로</a></p>
+		<p><a href="../index.html">일기 목록</a></p>
+		<p><a href="index.html">일기/2024년</a></p>
+		<p><a href="10.html">&lt;- 10월</a></p>
+		<br>
+		<h2>2024/11/1</h2>
+		<p>
+11월을 맞이하여 새로운 페이지로 이사하였다.
+하루하루 나이를 먹어가는 느낌이 그리 좋지는 않지만 달리 어쩌겠는가?
+오늘도 어제와 다름없이 보잘것없는 코드를 짜고 있다.
+		</p>
+
+		<p>
+오늘의 사소한 깨달음: Bash에 Parameter Expansion이라는 기능이 있다. 하지만 유의할 점이 있다.
+이 기능은 POSIX 표준이 아니어서 dash나 ksh에서는 작동하지 않는다.
+{one, two, three}나 {1..10}은 알고 있었지만 이걸 파일 확장자에 쓸 생각은 못했다.
+(사실 위 둘은 엄밀히 말하자면 Brace Expansion이긴 하다.)
+Parameter Expansion은 변수 안의 부분문자열을 다룰 수 있게 한다.
+man page를 읽어 보면 수많은 항목들이 나열되어 있다.
+그 중에서 확장자 일괄 변환에 쓰이는 게 하나 있다. 바로 % 기호이다.
+%는 맨 끝에 해당하는 문자열을 없앤다. 즉 $lol이 "asdf"일 때 ${lol%df}는 "as"가 된다.
+참고로 % 뒤의 문자열이 맨 끝에 오지 않으면 무시된다.
+이를 이용해서 파일 확장자를 일괄 변환할 수 있다.
+물론 파일 확장자뿐 아니라 다양한 곳에 쓰일 수 있겠지만 지금은 생각이 잘 안 난다.
+<br>결론: for f in *.py; do mv ${f%.py}.rb; done -&gt; Python 파일을 Ruby로 변환
+<br>참고: Bash(1)의 Parameter Expansion 항목
+		</p>
+	</body>
+</html>
