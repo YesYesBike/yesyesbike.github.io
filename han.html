@@ -8,14 +8,14 @@
 * {font-family: monospace; font-size: 23px}
 body {background-color: #1c1c1c; color: #bcbcbc}
 .String {color: #9e9e9e}
-.Statement {color: #666666; font-weight: bold}
+.Statement {font-weight: bold; color: #666666}
 .Number {color: #767676}
-.Type {color: #666666; font-weight: bold}
-.Constant {color: #666666; font-weight: bold}
+.Type {font-weight: bold; color: #666666}
+.Constant {font-weight: bold; color: #666666}
 .PreProc {color: #808080}
-.Comment {font-style: italic; color: #4e4e4e}
+.Comment {color: #4e4e4e; font-style: italic}
 .Special {color: #666666}
-.Todo {color: #5f5fd7; font-weight: bold; background-color: #1c1c1c}
+.Todo {font-weight: bold; color: #5f5fd7; background-color: #1c1c1c}
 </style>
 </head>
 <body style="display: flex">
@@ -108,6 +108,16 @@ body {background-color: #1c1c1c; color: #bcbcbc}
     <span class="Statement">case</span> <span class="Constant">'L'</span>:    <span class="Comment">/* ㅣ */</span>
         han_mo(chr, reg);
         <span class="Statement">break</span>;
+    
+    <span class="Statement">case</span> <span class="Constant">'['</span>:
+    <span class="Statement">case</span> <span class="Special">'\\'</span>:
+    <span class="Statement">case</span> <span class="Constant">']'</span>:
+    <span class="Statement">case</span> <span class="Constant">'^'</span>:
+    <span class="Statement">case</span> <span class="Constant">'_'</span>:
+    <span class="Statement">case</span> <span class="Constant">'`'</span>:
+        han_insert_p(reg);
+        han_print_p(reg);
+        han_putc(reg, chr);
     }
 }
 
@@ -506,11 +516,11 @@ body {background-color: #1c1c1c; color: #bcbcbc}
 
 <span class="Comment">//최초 글자 처리. A-z의 글자만 선별해 한글로 변환</span>
 <span class="Comment">//이스케이프 여부에 따른 처리도 여기에 포함</span>
-<span class="Comment">//</span><span class="Todo">TODO</span><span class="Comment"> if문을 줄일 수 있는 방법이 있을까?</span>
-<span class="Type">void</span> han(<span class="Type">wchar_t</span> *str, han_reg *reg)
+<span class="Comment">//</span><span class="Todo">XXX</span><span class="Comment"> if문을 줄일 수 있는 방법이 있을까?</span>
+<span class="Type">void</span> han(<span class="Type">wchar_t</span> *str, han_reg *reg, <span class="Type">char</span> esc_ch)
 {
     <span class="Type">static</span> <span class="Type">int</span> esc = <span class="Number">0</span>;
-    <span class="Type">static</span> <span class="Type">int</span> bef_amp = <span class="Number">0</span>;
+    <span class="Type">static</span> <span class="Type">int</span> bef_esc = <span class="Number">0</span>;
 
     <span class="Statement">for</span> (<span class="Type">int</span> i=<span class="Number">0</span>; str[i] != <span class="Special">'\0'</span>; i++) {
         <span class="Statement">if</span> (reg-&gt;p)
@@ -518,40 +528,37 @@ body {background-color: #1c1c1c; color: #bcbcbc}
 
         <span class="Statement">if</span> (str[i] == <span class="Special">'\n'</span> &amp;&amp; reg-&gt;flag &amp; HAN_FLAG_C)
             <span class="Statement">continue</span>;
-        <span class="Statement">if</span> (str[i] == <span class="Constant">'@'</span> &amp;&amp; reg-&gt;flag &amp; HAN_FLAG_E) {
-            <span class="Statement">if</span> (esc == <span class="Number">0</span>) {
+        <span class="Statement">if</span> (str[i] == esc_ch &amp;&amp; esc_ch) {
+            <span class="Statement">if</span> (esc == <span class="Number">0</span>)
                 han_insert_p(reg);
-                han_print_p(reg);
-            }
+
             esc = esc ? <span class="Number">0</span> : <span class="Number">1</span>;
 
-            <span class="Comment">//-E일 때 bef_amp는 무시</span>
-            <span class="Statement">if</span> (reg-&gt;flag &amp; HAN_FLAG_EE) {
-                han_putc(reg, <span class="Constant">'@'</span>);
+            <span class="Comment">//-E일 때 bef_esc는 무시</span>
+            <span class="Statement">if</span> (reg-&gt;flag &amp; HAN_FLAG_E) {
+                han_putc(reg, esc_ch);
                 <span class="Statement">continue</span>;
             }
-            <span class="Statement">if</span> (bef_amp) {
-                bef_amp = <span class="Number">0</span>;
-                han_putc(reg, <span class="Constant">'@'</span>);
+            <span class="Statement">if</span> (bef_esc) {
+                bef_esc = <span class="Number">0</span>;
+                han_putc(reg, esc_ch);
                 <span class="Statement">continue</span>;
             }
-            bef_amp = <span class="Number">1</span>;
+            bef_esc = <span class="Number">1</span>;
             <span class="Statement">continue</span>;
         }
 
-        bef_amp = <span class="Number">0</span>;
+        bef_esc = <span class="Number">0</span>;
         <span class="Statement">if</span> (esc) {
             han_putc(reg, str[i]);
             <span class="Statement">continue</span>;
         }
 
-        <span class="Statement">if</span> (isalpha(str[i])) {
+        <span class="Statement">if</span> (str[i]&gt;=<span class="Constant">'A'</span> &amp;&amp; str[i]&lt;=<span class="Constant">'z'</span>) {
             han_trans(str[i], reg);
         } <span class="Statement">else</span> {
-            <span class="Statement">if</span> (reg-&gt;cho || reg-&gt;jung) {
-                han_insert_p(reg);
-                han_print_p(reg);
-            }
+            han_insert_p(reg);
+            han_print_p(reg);
             han_putc(reg, str[i]);
         }
     }
@@ -561,13 +568,12 @@ body {background-color: #1c1c1c; color: #bcbcbc}
 <span class="Type">void</span> help(<span class="Type">void</span>)
 {
     printf(<span class="String">&quot;[한영타 변환기 도움말]</span><span class="Special">\n\</span>
-<span class="String">사용법: 표준 입출력에서 알파벳을 한글로 환해야 할 상황에서 활용할 수 있음.</span><span class="Special">\n\</span>
-<span class="String">옵션</span><span class="Special">\n\</span>
+<span class="String">사용법: 표준 입출력에서 알파벳을 한글로 변환해야 할 상황에서 활용할 수 있음.</span><span class="Special">\n\</span>
 <span class="String">-h: 지금 보고 있는 것.</span><span class="Special">\n\</span>
 <span class="String">-c: 개행문자를 제외하고 출력.</span><span class="Special">\n\</span>
-<span class="String">-e: @부터 다음 @까지 한글 변환 무시(@는 미출력).</span><span class="Special">\n\</span>
-<span class="String">    @를 입력하고 싶으면 두 번 입력.</span><span class="Special">\n\</span>
-<span class="String">-E: -e와 달리 @를 그대로 출력.</span><span class="Special">\n\</span>
+<span class="String">-e: 이스케이프 문자를 지정하여 다음 이스케이프 문자까지 변환 무시. </span><span class="Special">\n\</span>
+<span class="String">    해당 문자를 출력하려면 둘을 붙여쓰면 됨. </span><span class="Special">\n\</span>
+<span class="String">-E: -e와 달리 이스케이프 문자를 그대로 출력.</span><span class="Special">\n\</span>
 <span class="String">-t: stdin과 파일에 동시 출력. 옵션을 주지 않고 tee를 후처리 필터로 사용할 시</span><span class="Special">\n\</span>
 <span class="String">    입력할 때마다 결과를 볼 수 없었던 점을 감안하여 추가함.</span><span class="Special">\n\</span>
 <span class="String">-T: -t와 기존 파일에 덧붙이는 것 빼고 동일</span><span class="Special">\n</span><span class="String">&quot;</span>);
@@ -593,21 +599,22 @@ body {background-color: #1c1c1c; color: #bcbcbc}
     <span class="Type">int</span> opt;
     opterr = <span class="Number">0</span>;
     <span class="Type">char</span> t_optstr[] = <span class="String">&quot;w&quot;</span>;
+    <span class="Type">char</span> esc_ch = <span class="Number">0</span>;
 
-    <span class="Statement">while</span> ((opt = getopt(argc, argv, <span class="String">&quot;ceEhT:t:&quot;</span>)) != -<span class="Number">1</span>) {
+    <span class="Statement">while</span> ((opt = getopt(argc, argv, <span class="String">&quot;ce:E:hT:t:&quot;</span>)) != -<span class="Number">1</span>) {
         <span class="Statement">switch</span> (opt) {
         <span class="Statement">case</span> <span class="Constant">'c'</span>:
             reg.flag |= HAN_FLAG_C;
             <span class="Statement">break</span>;
         <span class="Statement">case</span> <span class="Constant">'E'</span>:
-            reg.flag |= HAN_FLAG_EE;
-        <span class="Statement">case</span> <span class="Constant">'e'</span>:
             reg.flag |= HAN_FLAG_E;
+        <span class="Statement">case</span> <span class="Constant">'e'</span>:
+            esc_ch = optarg[<span class="Number">0</span>];
             <span class="Statement">break</span>;
         <span class="Statement">case</span> <span class="Constant">'h'</span>:
             help();
         <span class="Statement">case</span> <span class="Constant">'T'</span>:
-            t_optstr[<span class="Number">0</span>] = <span class="Constant">'a'</span>;
+            *t_optstr = <span class="Constant">'a'</span>;
         <span class="Statement">case</span> <span class="Constant">'t'</span>:
             reg.flag |= HAN_FLAG_T;
             <span class="Statement">if</span> ((reg.fd = fopen(optarg, t_optstr)) == <span class="Constant">NULL</span>)
@@ -615,12 +622,12 @@ body {background-color: #1c1c1c; color: #bcbcbc}
             <span class="Statement">break</span>;
         <span class="Statement">case</span> <span class="Constant">'?'</span>:
             print_error(
-                <span class="String">&quot;사용법: </span><span class="Special">%s</span><span class="String"> [-c] [-e|E] [-h] [-t|T 파일]</span><span class="Special">\n</span><span class="String">&quot;</span>, argv[<span class="Number">0</span>]);
+                <span class="String">&quot;사용법: </span><span class="Special">%s</span><span class="String"> [-c] [-e|E 문자] [-h] [-t|T 파일]</span><span class="Special">\n</span><span class="String">&quot;</span>, argv[<span class="Number">0</span>]);
         }
     }
 
     <span class="Statement">while</span> (fgetws(buf, BUFSIZE, <span class="Constant">stdin</span>) != <span class="Constant">NULL</span>)
-        han(buf, &amp;reg);
+        han(buf, &amp;reg, esc_ch);
 
     han_insert_p(&amp;reg);
     han_print_p(&amp;reg);
