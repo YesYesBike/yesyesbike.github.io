@@ -1,0 +1,9 @@
+/* 1 */
+close(2);		//stderr
+newfd = dup(1);		//newfd: 2
+
+/* 2 */
+newfd = dup2(1, 2);	//close stderr, newfd: 2
+
+/* 3 */
+dup2(1, 2);	//여전히 같다
