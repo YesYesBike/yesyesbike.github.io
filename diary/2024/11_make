@@ -16,5 +16,6 @@ lollol.o: lollol.c
 
 #예제 2
 lol: lol.o lollol.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 lol.o: heder.h
