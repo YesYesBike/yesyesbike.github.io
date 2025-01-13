@@ -1,0 +1,21 @@
+#둘은 같은 일을 한다. 무서움!
+
+#공통
+CFLAGS = -g
+LDFLAGS = -lm
+
+
+#예제 1
+lol: lol.o lollol.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+lol.o: lol.c heder.h
+	$(CC) -c $(CFLAGS) -o $@ $< $(LDFLAGS)
+lollol.o: lollol.c
+	$(CC) -c $(CFLAGS) -o $@ $< $(LDFLAGS)
+
+
+#예제 2
+lol: lol.o lollol.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+lol.o: heder.h
