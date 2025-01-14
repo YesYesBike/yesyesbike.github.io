@@ -203,8 +203,72 @@ C언어 문법에 익숙한 내게 Lua는 상당한 혼란을 일으켰다.
 별다른 이유 없이 인터페이스, 기능 등을 뜯어 고친다면 사용자는 새로운 사용법을 또 익혀야 하고 기존 지식과 상충하는 사항 때문에 고생을 겪는다.
 분명 Lua에게도 이런 변화를 준 데에 합당한 이유가 있을 것이다.
 중괄호를 쓰는 대신에 알골식 문법을 차용한 것은 테이블이 중괄호를 써야하기 때문인 것처럼 말이다.
-8번 사항에 해당하는 단항 증감연산자도 버그를 유발할 수 있기 때문에 삭제한 것으로 보인다.
+8번 항목에 해당하는 단항 증감연산자도 버그를 유발할 수 있기 때문에 삭제한 것으로 보인다.
 하지만 여전히 왜 첫 번째 원소의 인덱스를 1로 지정했지는 모르겠다. <strong>나무삼!</strong>
+		</p>
+
+		<br>
+
+		<h2>2025/01/15</h2>
+		<p>
+작성되지 않은 코드에는 억만금의 가치가 있다. 거기에는 무한한 가능성이 있다.
+어리석은 프로그래머는 1만 줄의 코드로 문제를 해결하지만 현명한 프로그래머는 코드를 작성하지 않고 똑같은 일을 해낸다.
+완벽은 더할 게 없을 때 이루어지는 게 아니라 더 이상 뺄 게 없을 때에 이루어진다.
+		</p>
+		
+		<p>
+어제에 이어서 다른 후보인 Scheme을 공부했다.
+값을 최대한 늦게 계산해 데이터 손실을 막을 수 있다는 이점이 있다.
+불행히도 아직 이걸로 제대로 된 프로그램을 짤 실력이 안 된다.
+여러 입문 자료를 읽다보면 모두들 하나같이 리스프가 간단하고 금방 배울 수 있다고 말한다.
+여기에는 함정이 숨어있다. 금방 배울 수 있다고 해서 하룻밤에 뚝딱 해치울 수 있는 건 아니다.
+문법은 상당히 간단하다. 괄호에서 시작해서 괄호로 끝난다. 여기에 첫 번째 난관이 있다.
+리스프를 사용한다면 전용 기능을 지원하는 편집기가 반드시 있어야 한다.
+괄호가 짝이 맞는지 확인하는 기능과 자동으로 들여쓰기를 정리해주는 기능은 필수다.
+하지만 이를 갖춰도 문법 오류를 찾아내기는 역부족이다.
+똑같이 따라 쳤는데도 오류를 내뱉는 광경을 지켜보고 있자면 옛날에 자바로 코딩하던 시절의 안 좋은 기억이 떠오른다.
+참다 못해 예제 코드를 복붙하면 오류가 말끔히 사라지는데 이때 수많은 생각이 머리를 스쳐 지나간다.
+이런 종류의 오류는 보통 괄호 하나 때문에 생겨나는데 이런 괄호가 코드 전체에 산더미만큼 산재해 있다.
+한눈에 오류를 파악해내기란 거의 불가능하다.
+		</p>
+
+		<p>
+이를 감안하더라도 수많은 낯선 개념들이 발목을 잡는다.
+아마 그 첫 관문이 람다일 것이다. 한때 이게 뭔지 이해하려고 한참을 고민했던 기억이 있다.
+지금은 이게 이름 없이 프로시저 그 자체를 표기하는 방식임을 알지만 당시에는 완전한 넌센스였다.
+그걸 이해하고 나서도 여전히 혼란스러운 개념들이 앞에 널려있다.
+let과 letrec의 차이점을 몰라서 좌절에 빠졌던 적도 있다.
+(cons 'a '(b))의 결과는 (a b)이고 (cons 'a 'b)의 결과는 (a . b)이다.
+이 미묘한 차이를 알려면 먼저 cons 프로시저의 작동 원리를 알아야 한다.
+C를 (cons 'A 'B)라고 한다면 (car C)는 A이고 (cdr C)는 B이다.
+<a href="https://conservatory.scheme.org/schemers/Documents/Standards/R5RS/HTML/r5rs-Z-H-9.html#%_idx_390">
+	이게 cons의 정의다.</a>
+이걸 알더라도 여전히 의문은 사라지지 않는다. (a b)와 (a . b)는 뭐가 다른 건가?
+결론만 말하자면 전자는 리스트이고 후자는 <a href="https://conservatory.scheme.org/schemers/Documents/Standards/R5RS/HTML/r5rs-Z-H-2.html#%_toc_%_sec_6.3.2">pair</a>다.
+pair는 리스트와는 생긴 건 비슷하지만 다르다.
+		</p>
+
+		<p>
+깜빡하고 얘기를 안 한 사실이 있다. Scheme을 공부한 게 이번이 처음이 아니다.
+오늘 말고도 이렇게 Scheme에 도전한 게 열 번은 족히 넘을 것이다.
+처음 Scheme을 접하게 된 계기는 너무나 잘 알려진 고전인 SICP였다.
+본문 난이도도 상당하지만 연습 문제도 매우 어렵다. 아직까지도 1장을 넘어서지 못하고 있다.
+MIT에서는 입문서겠지만 나는 그 정도로 유능하지는 않아서 SICP로 공부하는 건 그만두기로 했다.
+이번에는 다른 전략을 취했다. 머나먼 꿈인 SICP는 내버려두고 대신 문법 자체를 공부하는 데에 초점을 두었다.
+R5RS 공식 문서의 쪽수가 50쪽밖에 안 되지만 레퍼런스 매뉴얼답게 읽기 어려운 부분이 있다.
+그래서 튜토리얼로 읽을 만한 자료를 찾았다. 괜찮은 게 꽤 많이 있었다.
+<ul>
+	<li><a href="https://files.spritely.institute/papers/scheme-primer.html">A Scheme Primer</a></li>
+	<li><a href="https://scheme.com/tspl4/">The Scheme Programming Language</a></li>
+	<li><a href="https://ds26gte.github.io/tyscheme/index-Z-H-1.html">Teach Yourself Scheme in Fixnum Days</a></li>
+	<li><a href="https://docs.scheme.org/schintro/">An Introduction to Scheme and its Implementation</a></li>
+	<li><a href="https://docs.scheme.org/guide/">Scheme.org Guide</a></li>
+	<li><a href="https://en.wikibooks.org/wiki/Scheme_Programming">Wikibooks Scheme Programming</a></li>
+	<li><a href="https://lips.js.org/docs/category/introduction-to-scheme">Introduction to Scheme</a></li>
+	<li><a href="https://docs.scheme.org/">Scheme.org Docs</a></li>
+</ul>
+이 목록에 있는 튜토리얼을 끝낸 다음에 레퍼런스 매뉴얼을 읽으면 될 것 같다.
+아니, 그 전에 <a href="https://htdp.org/2023-8-14/Book/index.html">How to Desing Programs</a>를 읽어야겠다.
 		</p>
 	</body>
 </html>
