@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- Generated from Markdown -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>C, Perl, Linux</title>
+</head>
+<body>
+<h1>&ldquo;모든 길은 로마로 통한다. 그리고 오늘은 목요일이다.&rdquo; -미상</h1>
+
+<hr />
+
+<p><a href="index.html">홈으로</a></p>
+
+<p><a href="jobda.html">잡다</a></p>
+
+<p><br></p>
+
+<p>2024년에 뭘 배웠는지는 이미 기억에서 증발해서 2025년에 배운 것부터 기록함.
+평소에 기록을 잘하자!<br/>
+글쓰기 실력과 코딩 실력의 상관관계가 있는지는 몰라도 내가 긴 글을 잘 못 쓰는 것과
+긴 코드를 잘 못 짜는 건 관련이 있는 것 같다.</p>
+
+<p><br></p>
+
+<ul>
+<li><p>프로그래밍 언어</p>
+
+<ul>
+<li>C
+
+<ul>
+<li><a href="https://westes.github.io/flex/manual/">Flex</a></li>
+<li><a href="https://www.gnu.org/software/bison/manual/bison.html">Bison</a></li>
+</ul>
+</li>
+<li>Perl
+
+<ul>
+<li><a href="https://learnbyexample.github.io/learn_perl_oneliners/preface.html">Perl One-Liners Guide</a></li>
+</ul>
+</li>
+<li>Scheme
+
+<ul>
+<li><a href="https://docs.scheme.org/schintro/schintro_toc.html">An Introduction to Scheme and its Implementation</a><br/>
+처음으로 <code>Scheme</code>를 공부한다면 이 글을 읽으라고 권하고 싶다. <code>Scheme</code> 문법
+만 다루는 게 아니라 그게 어떤 식으로 구현되어 있는지 꽤 자세히 설명한다.
+리스트의 <code>car</code>는 값인데 <code>cdr</code>는 또 다른 리스트인 이유를 여기서 알게 되었다.<br/>
+<code>Scheme</code>에서 리스트는 연결 리스트로 구현되어 있다.
+<code>cons</code>는 연결 리스트의 노드를 만든다. <code>car</code>는 노드의 데이터에 해당하고 <code>cdr</code>는 다음 노드를 가리킨다.
+이런 원리를 깨우치니 공부하는 동안 의문으로 남았던 게 말끔히 씻겨나갔다.
+Pair도 어떻게 구현된 건지도 알게 되었다. <code>cdr</code>는 다음 노드를 가리키는 게 아니라 또 다른 값을 가리킨다.<br/>
+다만 군데군데 빠져 있는 곳이 많이 있어서 아쉬움이 남는다.</li>
+<li><a href="https://www.defmacro.org/ramblings/lisp.html">The Nature of Lisp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>컴퓨터 일반</p>
+
+<ul>
+<li>컴퓨터 구조</li>
+<li>운영체제</li>
+<li>시스템 프로그래밍</li>
+<li>알고리즘</li>
+<li>네트워킹</li>
+</ul>
+</li>
+<li><p>생산성</p>
+
+<ul>
+<li>Unix</li>
+<li>Vim
+
+<ul>
+<li><a href="https://learnvimscriptthehardway.stevelosh.com/">Learn Vimscript the Hard Way</a><br/>
+편집기에서 터미널로 코드를 전송하는 함수를 작성하려면 그걸 수행하는 Vim API를 알아야 한다.
+아직까지도 변수를 다루는 법도 모르니 이번 기회에 잘 공부해서 플러그인도 짜봐야겠다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>하드웨어</p>
+
+<ul>
+<li>MCU</li>
+</ul>
+</li>
+<li><p>해커 정신</p>
+
+<ul>
+<li><a href="http://www.catb.org/esr/writings/taoup/html/">The Art of Unix Programming</a><br/>
+유닉스 철학에 대한 글은 많지만 이렇게 한 권의 책으로 구성된 건 흔치 않다.
+몇 쪽이나 될지는 잘 모르겠지만 수백 쪽은 족히 될 것 같다.<br/>
+유닉스가 그토록 오랜 세월 동안 살아남은 건 무엇 때문인가?
+물론 정식으로 인증받은 유닉스는 거의 없지만 그 정신은 전 세계 해커들에게 퍼져 있다.
+내가 유닉스를 좋아하는 이유는 내가 윈도우를 싫어하는 이유와 정반대이다.
+
+<ol>
+<li>유닉스는 삶을 편리하게 하지만 윈도우의 GUI는 그걸 불가능하게 한다.</li>
+<li>유닉스에서는 자유롭게 작업 환경을 자기 입맛대로 뜯어 고치기 쉽지만 윈도우는 그게 매우 힘들고 제한적이다.</li>
+<li>유닉스의 인터페이스는 투명하지만 윈도우는 모든 게 안개에 둘러싸여 있다.</li>
+<li>유닉스에서는 쉘을 중심으로 작업을 자동화하기 편하지만 윈도우에서는&hellip; 안 해봐서 모르겠다.</li>
+<li>유닉스는 공부한 만큼 보상이 돌아오지만 윈도우는 공부하는 보람이 적다.</li>
+<li>유닉스는 프로그래밍을 하기 위한 환경을 구축하기 쉽지만 윈도우는 걸리적거리는 게 많다.</li>
+</ol>
+</li>
+<li><a href="http://www.catb.org/~esr/faqs/hacker-howto.html">How To Become A Hacker</a></li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
